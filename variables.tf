@@ -13,10 +13,9 @@ variable "variable_sets" {
         key         = string
         value       = string
         description = string
-        # variable_set = list(string)
-        category  = string
-        sensitive = bool
-        hcl       = bool
+        category    = string
+        sensitive   = bool
+        hcl         = bool
       }
     )) }
   ))

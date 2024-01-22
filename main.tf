@@ -77,3 +77,4 @@ resource "tfe_project_variable_set" "main" {
   variable_set_id = tfe_variable_set.main[each.value.varset_name].id
   project_id      = data.tfe_project.main[each.value.project_name].id
 }
+

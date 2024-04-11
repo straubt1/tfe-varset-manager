@@ -1,5 +1,6 @@
 variable "organization_name" {
-  default = "terraform-tom"
+  type        = string
+  description = "The Organization Name"
 }
 
 variable "variable_sets" {

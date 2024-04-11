@@ -1,5 +1,5 @@
-module "example" {
-  source = "../"
+module "list" {
+  source = "../../modules/list"
 
   organization_name = "terraform-tom"
   variable_sets = [

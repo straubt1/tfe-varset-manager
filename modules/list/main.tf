@@ -1,24 +1,11 @@
 locals { # locals to do all the variable coordination
-  # map of items of all referenced Projects
-  tfe_projects = toset(distinct(flatten([
+  # List of all referenced Project Names
+  tfe_projects = toset(flatten([
     for varset in var.variable_sets : [
       varset.projects
-    ]
-  ])))
+  ]]))
 
-  # map of items to create all project and variable set assignments
-  tfe_varset_assignment = { for e in flatten([
-    for varset in var.variable_sets : [
-      for p in varset.projects : {
-        key = format("%s_%s", varset.name, p)
-
-        project_name = p
-        varset_name  = varset.name
-      }
-    ]
-  ]) : e.key => e }
-
-  # map of items to create all variable sets
+  # Map of all Variable Sets to create
   tfe_variable_sets = {
     for varset in var.variable_sets : varset.name => {
       name        = varset.name
@@ -26,7 +13,7 @@ locals { # locals to do all the variable coordination
     }
   }
 
-  # map of items to create all variables for all variable sets
+  # Map of all Variables to create for all Variable Sets
   tfe_variables = { for e in flatten([
     for varset in var.variable_sets : [
       for v in varset.variables : {
@@ -42,6 +29,27 @@ locals { # locals to do all the variable coordination
       }
     ]
   ]) : e.key => e }
+
+  # Map of all Variable Set assignments to Projects
+  tfe_varset_assignment = { for e in flatten([
+    for varset in var.variable_sets : [
+      for p in varset.projects : {
+        key = format("%s_%s", varset.name, p)
+
+        project_name = p
+        varset_name  = varset.name
+      }
+    ]
+  ]) : e.key => e }
+}
+
+output "debug" {
+  value = {
+    # tfe_projects = local.tfe_projects
+    # tfe_variable_sets = local.tfe_variable_sets
+    # tfe_variables = local.tfe_variables
+    # tfe_varset_assignment = local.tfe_varset_assignment
+  }
 }
 
 # Lookup existing Project Id's based on passed in Project Names

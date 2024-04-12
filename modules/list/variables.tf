@@ -1,6 +1,6 @@
 variable "organization_name" {
-  type        = string
   description = "The Organization Name"
+  type        = string
 }
 
 variable "variable_sets" {
@@ -21,4 +21,3 @@ variable "variable_sets" {
     )) }
   ))
 }
-

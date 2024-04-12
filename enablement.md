@@ -1,5 +1,26 @@
 # Enablement
 
+Often we see Terraform code in the wild like this:
+
+```
+something_complex = { for e in flatten([
+  for v in var.variableA : [
+    for p in v.variableP : {
+      key           = format("%s_%s", v.name, p)
+      resource_name = p
+      id            = v.id
+    }
+  ]
+]) : e.key => e }
+```
+
+<details>
+  <summary>What???</summary>
+
+  ![](https://media2.giphy.com/media/3o85xFGjUBlUw4XEek/giphy.gif?cid=6104955eypq7ictaa0547uxkj02urr5pvw9ftd1zns2egy1h&ep=v1_gifs_translate&rid=giphy.gif&ct=g)
+</details>
+
+
 
 ## Problem Set
 
